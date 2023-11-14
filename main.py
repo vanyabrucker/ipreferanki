@@ -27,8 +27,8 @@ def scrape_set(set_url: str, deck_name: str = ""):
     options.add_argument('--disable-dev-shm-usage')
 
     # Turn on headless mode (no GUI)
-    #options.add_argument('--headless')
-    #options.add_argument("--window-size=1920,1200")
+    options.add_argument('--headless')
+    options.add_argument("--window-size=1920,1200")
 
     # Don't kill the browser (for development)
     # options.add_experimental_option("detach", True)
@@ -144,4 +144,4 @@ def scrape_set(set_url: str, deck_name: str = ""):
 
 
 if __name__ == "__main__":
-    scrape_set("https://card2brain.ch/box/20230330_23hs_banking_and_finance_i_modul_5_einfuehrung_in_banking?max=32&offset=0&searchPhrase=")
+    scrape_set("https://card2brain.ch/box/20230330_23hs_banking_and_finance_i_modul_7_bankkrisen_und_regulierung")

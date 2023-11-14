@@ -15,3 +15,4 @@ This library and its author(s) are not affiliated with Card2Brain or Anki in any
 ## Known Issues
 - The converter does not support images yet
 - Ads are not handled elegantly and produce warnings
+- Select the max number of cards to display on a page to avoid missing cards, the pagination is not handled well yet
