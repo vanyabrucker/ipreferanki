@@ -27,8 +27,8 @@ def scrape_set(set_url: str, deck_name: str = ""):
     options.add_argument('--disable-dev-shm-usage')
 
     # Turn on headless mode (no GUI)
-    options.add_argument('--headless')
-    options.add_argument("--window-size=1920,1200")
+    #options.add_argument('--headless')
+    #options.add_argument("--window-size=1920,1200")
 
     # Don't kill the browser (for development)
     # options.add_experimental_option("detach", True)
@@ -54,7 +54,6 @@ def scrape_set(set_url: str, deck_name: str = ""):
 
     # Number of pages (length of pagination list -1 for the next button)
     number_of_pages = len(driver.find_elements(By.XPATH, '//ul[contains(@class, "pagination")]/li')) - 1
-    print("Number of pages: " + str(number_of_pages))
 
     # When there is only one page, the pagination list is one and the next button is not there. 1 - 1 = 0
     if number_of_pages == -1:
@@ -88,16 +87,19 @@ def scrape_set(set_url: str, deck_name: str = ""):
 
     # Loop over the page
     for page_number in range(number_of_pages):
+        # Print page number
+        print("Page number: " + str(page_number + 1))
+
         if page_number != 0:
             # Go to next page
             print("Going to next page")
             next_page_button = driver.find_element(By.XPATH, '(//ul[contains(@class, "pagination")]/li)[last()]')
-            # Scroll to next page button
-            driver.execute_script("arguments[0].scrollIntoView();", next_page_button)
-            driver.execute_script("arguments[0].click();", next_page_button)
-            # driver.find_element(By.XPATH, '//*[@id="cardlist"]/div[57]/ul/li[' + str((number_of_pages + 1)) + ']/a').click()
+
+            # Follow link
+            driver.get(next_page_button.find_element(By.XPATH, './a').get_attribute("href"))
 
             # Wait for page to load
+            print("Waiting for page to load")
             driver.implicitly_wait(5)
 
         print("Getting card list element")
@@ -117,15 +119,14 @@ def scrape_set(set_url: str, deck_name: str = ""):
             question_answer = card.find_elements(By.CLASS_NAME, 'fs-card')
 
             if len(question_answer) != 2:
-                print("Error: question_answer length is not 2")
+                # print("Error: question_answer length is not 2")
                 continue
 
             # print("Question")
             # pretty_print_html(question_answer[0].get_attribute("innerHTML"))
             # print("Answer")
             # pretty_print_html(question_answer[1].get_attribute("innerHTML"))
-
-            print("\n")
+            # print("\n")
 
             anki_note = genanki.Note(
                 model=anki_model,
@@ -143,4 +144,4 @@ def scrape_set(set_url: str, deck_name: str = ""):
 
 
 if __name__ == "__main__":
-    scrape_set("https://card2brain.ch/box/20230330_23hs_banking_and_finance_i_modul_4_unternehmensbewertung")
+    scrape_set("https://card2brain.ch/box/20230330_23hs_banking_and_finance_i_modul_5_einfuehrung_in_banking?max=32&offset=0&searchPhrase=")
