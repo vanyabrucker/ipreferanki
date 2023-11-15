@@ -12,6 +12,12 @@ This library and its author(s) are not affiliated with Card2Brain or Anki in any
 3. Run the main function with `set_url` and `deck_name` (optional) as arguments. If you don't input deck_name, it will default to the page title.
 4. Import the generated deck from `data/output.apkg` into Anki
 
+## Contribute
+Contributions are welcome, just open a pull request.
+
+## Future Development
+- Create a hosted version of this converter with a simple interface
+
 ## Known Issues
 - The converter does not support images yet
 - Ads are not handled elegantly and produce warnings
